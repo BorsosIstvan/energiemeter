@@ -13,7 +13,7 @@ $client->onMessage(function($message) {
 });
 
 // Maak verbinding met je eigen server
-$client->connect('localhost', 1883, 60);
+$client->connect('poci.n-soft.net', 1883, 60);
 
 // Blijf oneindig luisteren naar MQTT
 $client->loopForever();
