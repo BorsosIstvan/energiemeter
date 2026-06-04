@@ -4,37 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live Energiemeter & Timer Test</title>
-    <style>
-        body {
-			font-family: 'Segoe UI', sans-serif; 
-			margin: 0; background-color: #0b0c10; 
-			color: #ffffff; display: flex; justify-content: center; 
-			min-height: 100vh; 
-			}
-		.container { width: 100%; max-width: 450px; 
-			background: linear-gradient(180deg, #160c1b 0%, #0b0c10 100%); 
-			padding: 25px 20px; 
-			box-sizing: border-box; 
-			display: flex; flex-direction: column; 
-			justify-content: space-between; 
-			box-shadow: 0 0 30px rgba(0,0,0,0.6); 
-			text-align: center; 
-        }
-        .watt-display {
-            font-size: 48px;
-            font-weight: bold;
-            color: #d35400;
-            margin: 20px 0;
-        }
-        .timer-box {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #eee;
-            border-radius: 5px;
-            font-size: 14px;
-            color: #555;
-        }
-    </style>
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -65,7 +35,7 @@
             fetch('geef_watt.php')
                 .then(response => response.text())
                 .then(data => {
-                    document.getElementById('stroomWaarde').innerText = aantalTicks;
+                    document.getElementById('stroomWaarde').innerText = data;
                     document.getElementById('status').innerText = "Live verbonden";
                     document.getElementById('status').style.color = "green";
                 })
