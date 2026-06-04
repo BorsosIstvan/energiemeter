@@ -65,7 +65,7 @@
             fetch('geef_watt.php')
                 .then(response => response.text())
                 .then(data => {
-                    document.getElementById('stroomWaarde').innerText = data;
+                    document.getElementById('stroomWaarde').innerText = aantalTicks;
                     document.getElementById('status').innerText = "Live verbonden";
                     document.getElementById('status').style.color = "green";
                 })
