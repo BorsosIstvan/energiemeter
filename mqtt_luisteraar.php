@@ -8,10 +8,12 @@ if (file_put_contents('/var/www/html/HitData/live_watt.txt', 'Hooi') === false) 
 }
 // Maak verbinding met de lokale MQTT server
 $client = new Mosquitto\Client();
+echo('new client gemaakt')
 
 $client->onConnect(function() use ($client) {
     // Abonneer op het topic van je ESP
     $client->subscribe('huis/meter/fase1', 0);
+	echo('subscribed')
 });
 
 $client->onMessage(function($message) {
