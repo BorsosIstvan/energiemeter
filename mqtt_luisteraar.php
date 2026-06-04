@@ -17,6 +17,7 @@ $client->onConnect(function() use ($client) {
 $client->onMessage(function($message) {
     // Zodra de ESP data stuurt, schrijf het direct naar een bestand
     file_put_contents('/var/www/html/HitData/live_watt.txt', $message->payload);
+	echo($message->payload);
 });
 
 // Maak verbinding met je eigen server
