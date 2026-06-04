@@ -6,11 +6,11 @@
     <title>Live Energiemeter & Timer Test</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f9;
-            padding: 50px;
-        }
+			font-family: 'Segoe UI', sans-serif; 
+			margin: 0; background-color: #0b0c10; 
+			color: #ffffff; display: flex; justify-content: center; 
+			min-height: 100vh; 
+			}
         .container {
             background: white;
             padding: 30px;
