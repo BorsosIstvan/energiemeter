@@ -1,6 +1,11 @@
 <?php
 echo ('Hello');
-file_put_contents('/var/www/html/HitData/live_watt.txt', 'Hooi');
+// Probeer nu het bestand te schrijven
+if (file_put_contents('/var/www/html/HitData/live_watt.txt', 'Hooi') === false) {
+    echo "Fout: Kan niet schrijven naar het bestand. Bestaat de map wel en heeft Apache rechten?<br>";
+} else {
+    echo "Succes: 'Hooi' is geschreven!<br>";
+}
 // Maak verbinding met de lokale MQTT server
 $client = new Mosquitto\Client();
 
