@@ -1,4 +1,5 @@
 <?php
+echo ('Hello');
 // Maak verbinding met de lokale MQTT server
 $client = new Mosquitto\Client();
 
