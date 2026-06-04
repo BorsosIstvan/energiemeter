@@ -32,12 +32,21 @@
         <h1>Huidig Verbruik (MQTT -> PHP)</h1>
         <div class="watt-display"><span id="stroomWaarde">--</span> W</div>
         <p>Status: <span id="status">Laden...</span></p>
+		        <!-- DE TIMER TELLER -->
+        <div class="timer-box">
+            Timer updates: <strong id="timerTeller">0</strong> keer uitgevoerd
+        </div>
     </div>
 	
 	<?php require_once('mqtt_luisteraar.php'); ?>
 
     <script>
+		// We maken een variabele aan die we elke seconde gaan ophogen
+		let aantalTicks = 0;
         function updateScherm() {
+			// 1. Hoog de teller op en toon hem op het scherm
+            aantalTicks++;
+            document.getElementById('timerTeller').innerText = aantalTicks;
             // Vraag de waarde op bij het php script
             fetch('geef_watt.php')
                 .then(response => response.text())
