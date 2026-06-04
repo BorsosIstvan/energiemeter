@@ -11,13 +11,14 @@
 			color: #ffffff; display: flex; justify-content: center; 
 			min-height: 100vh; 
 			}
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            display: inline-block;
-            min-width: 300px;
+		.container { width: 100%; max-width: 450px; 
+			background: linear-gradient(180deg, #160c1b 0%, #0b0c10 100%); 
+			padding: 25px 20px; 
+			box-sizing: border-box; 
+			display: flex; flex-direction: column; 
+			justify-content: space-between; 
+			box-shadow: 0 0 30px rgba(0,0,0,0.6); 
+			text-align: center; 
         }
         .watt-display {
             font-size: 48px;
