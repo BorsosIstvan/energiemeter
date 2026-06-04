@@ -1,5 +1,6 @@
 <?php
 echo ('Hello');
+file_put_contents('/var/www/html/HitData/live_watt.txt', 'Hooi');
 // Maak verbinding met de lokale MQTT server
 $client = new Mosquitto\Client();
 
