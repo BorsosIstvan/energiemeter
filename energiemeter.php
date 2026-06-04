@@ -33,6 +33,8 @@
         <div class="watt-display"><span id="stroomWaarde">--</span> W</div>
         <p>Status: <span id="status">Laden...</span></p>
     </div>
+	
+	<?php require_once('mqtt_luisteraar.php'); ?>
 
     <script>
         function updateScherm() {
