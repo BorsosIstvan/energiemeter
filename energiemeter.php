@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live MQTT Energiemeter</title>
-    <!-- Inladen van de officiële MQTT JavaScript bibliotheek -->
-    <script src="https://cloudflare.com" type="text/javascript"></script>
+    <title>Live Energiemeter via PHP-MQTT</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,7 +21,7 @@
         .watt-display {
             font-size: 48px;
             font-weight: bold;
-            color: #2e7d32; /* Groen voor een duurzame look */
+            color: #d35400; /* Oranje look */
             margin: 20px 0;
         }
     </style>
@@ -31,59 +29,34 @@
 <body>
 
     <div class="container">
-        <h1>Huidig Verbruik (MQTT)</h1>
-        <!-- Hier tonen we de live waarde van de ESP -->
+        <h1>Huidig Verbruik (MQTT -> PHP)</h1>
         <div class="watt-display"><span id="stroomWaarde">--</span> W</div>
-        <p>Status: <span id="status">Verbinden met MQTT...</span></p>
+        <p>Status: <span id="status">Laden...</span></p>
     </div>
 
     <script>
-        // 1. Genereer een unieke Client ID voor deze browser-tab
-        const clientId = "Browser_Client_" + Math.random().toString(16).substr(2, 8);
-
-        // 2. Maak verbinding met de WebSocket-poort (9001) van je broker
-        // We gebruiken 'window.location.hostname' zodat het automatisch werkt op poci.n-soft.net
-        const client = new Paho.MQTT.Client(poci.n-soft.net, 9001, clientId);
-
-        // 3. Koppel de functies aan de gebeurtenissen
-        client.onConnectionLost = onConnectionLost;
-        client.onMessageArrived = onMessageArrived;
-
-        // 4. Maak daadwerkelijk verbinding
-        client.connect({
-            onSuccess: onConnect,
-            onFailure: function(err) {
-                document.getElementById('status').innerText = "Verbinding mislukt: " + err.errorMessage;
-                document.getElementById('status').style.color = "red";
-            }
-        });
-
-        // Functie die start als de browser succesvol is ingelogd op de MQTT server
-        function onConnect() {
-            document.getElementById('status').innerText = "Verbonden (Wachten op ESP32...)";
-            document.getElementById('status').style.color = "blue";
-            
-            // Abonneer op het exacte topic van jouw ESP32
-            client.subscribe("huis/meter/fase1");
+        function updateScherm() {
+            // Vraag de waarde op bij het php script
+            fetch('geef_watt.php')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('stroomWaarde').innerText = data;
+                    document.getElementById('status').innerText = "Live verbonden";
+                    document.getElementById('status').style.color = "green";
+                })
+                .catch(error => {
+                    document.getElementById('status').innerText = "Fout bij ophalen";
+                    document.getElementById('status').style.color = "red";
+                });
         }
 
-        // Functie die start als de verbinding onverwacht wegvalt
-        function onConnectionLost(responseObject) {
-            if (responseObject.errorCode !== 0) {
-                document.getElementById('status').innerText = "Verbinding verloren";
-                document.getElementById('status').style.color = "red";
-            }
-        }
+        // Voer direct uit bij openen
+        updateScherm();
 
-        // DE MAGIE: Deze functie start AUTOMATISCH zodra de ESP32 een bericht stuurt!
-        // Je hebt hier dus GEEN setInterval() meer nodig!
-        function onMessageArrived(message) {
-            // message.payloadString bevat de pure tekst (bijv. "450") van de ESP32
-            document.getElementById('stroomWaarde').innerText = message.payloadString;
-            
-            document.getElementById('status').innerText = "Live verbonden";
-            document.getElementById('status').style.color = "green";
-        }
+        // Herhaal dit ELKE SECONDE (1000ms)
+        setInterval(function() {
+            updateScherm();
+        }, 1000);
     </script>
 
 </body>
