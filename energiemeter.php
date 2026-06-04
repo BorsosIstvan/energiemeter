@@ -43,7 +43,7 @@
 
         // 2. Maak verbinding met de WebSocket-poort (9001) van je broker
         // We gebruiken 'window.location.hostname' zodat het automatisch werkt op poci.n-soft.net
-        const client = new Paho.MQTT.Client(window.location.hostname, 9001, clientId);
+        const client = new Paho.MQTT.Client(poci.n-soft.net, 9001, clientId);
 
         // 3. Koppel de functies aan de gebeurtenissen
         client.onConnectionLost = onConnectionLost;
